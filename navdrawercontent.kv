@@ -1,0 +1,54 @@
+
+<ContentNavigationDrawer>:
+    MDBoxLayout:
+        spacing: '8dp'
+        padding: '8dp'
+        orientation: 'vertical'
+
+        Image:
+            source: 'logo.jpg'
+            size_hint: .5, .2
+
+        ScrollView:
+
+            MDList:
+                md_bg_color: app.theme_cls.accent_color
+                OneLineIconListItem:
+                    text: 'Connection'
+                    on_release: root.screen_manager.current = 'connection'
+                    on_release: root.nav_drawer.set_state("close")
+
+                    IconLeftWidget:
+                        icon: 'connection'
+
+                OneLineIconListItem:
+                    text: 'Data'
+                    on_release: root.screen_manager.current = 'data'
+                    on_release: root.nav_drawer.set_state("close")
+
+                    IconLeftWidget:
+                        icon: 'database'
+
+                OneLineIconListItem:
+                    text: 'Control'
+                    on_release: root.screen_manager.current = 'control'
+                    on_release: root.nav_drawer.set_state("close")
+
+                    IconLeftWidget:
+                        icon: 'camera-control'
+
+                OneLineIconListItem:
+                    text: 'Statistics'
+                    on_release: root.screen_manager.current = 'statistics'
+                    on_release: root.nav_drawer.set_state("close")
+
+                    IconLeftWidget:
+                        icon: 'chart-bar'
+
+                OneLineIconListItem:
+                    text: 'About'
+                    on_release: root.screen_manager.current = 'about'
+                    on_release: root.nav_drawer.set_state("close")
+
+                    IconLeftWidget:
+                        icon: 'information-variant'

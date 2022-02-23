@@ -1,0 +1,36 @@
+#:kivy 2.0.0
+#: include navdrawercontent.kv
+#: include screens.kv
+
+
+NavigationScreen:
+# or MDScreen, then it's on the bottom but behaves properly
+<NavigationScreen@MDBoxLayout>:
+    orientation: 'vertical'
+
+    MDToolbar:
+        title: 'OPC UA'
+        left_action_items: [["menu", lambda x: nav_drawer.set_state('open')]]
+        md_bg_color: app.theme_cls.primary_color
+        type_height: 'small' #doesn't work
+
+    MDNavigationLayout:
+
+        ScreenManager:
+            id: screen_manager
+
+            ConnectScreen:
+            DataScreen:
+                id: data
+                #FilechooserPopup:
+            ControlScreen:
+            StatisticsScreen:
+            AboutScreen:
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                id: content_drawer
+                nav_drawer: nav_drawer
+                screen_manager: screen_manager

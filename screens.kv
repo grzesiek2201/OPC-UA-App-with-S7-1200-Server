@@ -1,0 +1,190 @@
+#:import Factory kivy.factory.Factory
+
+#<FilechooserPopup>
+#    id: file_popup
+#    auto_dismiss: False
+#    size_hint: 0.8, 0.8
+#    pos_hint: {'x': 0.1, 'top': 0.9}
+#    title: 'Choose a file to open'
+#    BoxLayout:
+#        orientation: 'vertical'
+#        FileChooserListView:
+#            id: filechooser
+#            on_selection: Factory.DataScreen().load_data(filechooser.selection)
+#            #on_selection: self.load_data(filechooser.selection)
+#            #on_selection: app.on_choosing_file(filechooser.selection)
+#            #on_selection: file_popup.selected(filechooser.selection)
+#            on_selection: root.dismiss()
+#        BoxLayout:
+#            orientation: 'horizontal'
+#            size_hint: 1, 0.1
+#            #height: 0.4
+#            pos_hint: {'top': 1}
+#            Button:
+#                text: "close"
+#                size_hint: 0.5, 0.7
+#                font_size: 16
+#                on_release: root.dismiss()
+#                #on_release: root.dismiss()
+
+
+<ConnectScreen>
+    name: 'connection'
+    MDBoxLayout:
+        padding: '20dp'
+        spacing: '10dp'
+        orientation: 'vertical'
+        adaptive_layout: True
+
+
+        MDLabel:
+            text: root.connected_string
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            halign: 'center'
+            size_hint: 1, None
+            height: self.texture_size[1]
+        MDTextField:
+            id: connect_text_field
+            hint_text: "OPC UA address"
+            text: "opc.tcp://192.168.0.2:4840/freeopcua/server/"
+            multiline: False
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint_x: 0.99
+        MDIconButton:
+            id: connect_button
+            icon: 'connection'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            # user_font_size: "24sp"
+            on_release: root.on_connect()
+        Widget:
+
+        Widget:
+
+
+<DataScreen>:
+    name: 'data'
+    MDGridLayout:
+        cols: 3
+
+        AnchorLayout:
+            size_hint_y: None
+            height:
+            MDFillRoundFlatButton:
+                text: "Save data"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.export_data(self)
+
+        AnchorLayout:
+            size_hint_y: None
+            height:
+            MDFillRoundFlatButton:
+                text: "Download data"
+                pos_hint: {'center_x': 0.1, 'center_y': 0.5}
+                on_release: root.update_table_from_server(self)
+
+        AnchorLayout:
+            size_hint_y: None
+            height:
+            MDFillRoundFlatButton:
+                text: "Load data"
+                pos_hint: {'center_x': 0.1, 'center_y': 0.5}
+                on_release: root.open_popup()
+                #on_release: Factory.FilechooserPopup().open()
+
+    MDBoxLayout:
+        id: table_box
+        size: self.size
+        size_hint: 1, (root.height - 60)/root.height
+        adaptive_width: True
+        adaptive_height: True
+
+
+<ControlScreen>:
+    name: 'control'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: '30dp'
+        padding: '30dp'
+        padding_bottom: '100dp'
+
+        MDFillRoundFlatButton:
+            id: motor_start
+            text: 'Start motor'
+            size_hint: None, None
+            height: '200dp'
+            pos_hint: {'center_x': 0.5}
+            font_size: 24
+            on_release: root.motor_start()
+
+        MDFillRoundFlatButton:
+            id: motor_stop
+            text: 'Stop motor'
+            size_hint: None, None
+            height: '200dp'
+            pos_hint: {'center_x': 0.5}
+            font_size: 24
+            on_release: root.motor_stop()
+
+        MDLabel:
+            padding_top: 50
+            text: "Set speed 0-100%"
+            pos_hint: {'center_x': 0.5, 'center_y': 0}
+            size_hint: 1, None
+            height: self.texture_size[1]
+            halign: 'center'
+            font_size: 20
+            font_style: 'H5'
+
+        MDSlider:
+            id: speed_slider
+            min: 0
+            max: 100
+            active: True
+            value: 0
+            size_hint: 0.8, None
+            pos_hint: {'center_x': 0.5}
+            on_active: root.slider_change(self)
+
+        MDFillRoundFlatButton:
+            id: error_acknowledge
+            text: 'Error ack'
+            size_hint: None, None
+            height: '200dp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0}
+            font_size: 18
+            on_release: root.error_acknowledge()
+
+        Widget:
+
+
+<StatisticsScreen>:
+    name: 'statistics'
+    MDLabel:
+        text: ''
+
+<AboutScreen>:
+    name: 'about'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '10dp'
+        size_hint_x: 0.8
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        MDLabel:
+            text: 'This is a demo application that presents the possibility of integrating Siemens S7-1200 with Python through OPC-UA protocol.'
+            font_style: 'Subtitle1'
+            pos_hint: {'center_x': 0.5}
+        MDLabel:
+            text: '© 2022, SNS Automatyk\nautomatyk@pwr.edu.pl'
+            font_style: 'Subtitle1'
+            size_hint_y: None
+            height: self.texture_size[1]
+            post_hint: {'center_x': 0.5}
+        MDLabel:
+            text: 'Authors:\nGrzegorz Radziwiłko  Mariusz Sokołowski'
+            font_style: 'Subtitle1'
+            size_hint_y: None
+            height: self.texture_size[1]
+            pos_hint: {'center_x': 0.5}
+        Widget:
