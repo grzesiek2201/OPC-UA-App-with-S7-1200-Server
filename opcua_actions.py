@@ -35,4 +35,4 @@ class OpcuaClient:
         variable.set_value(value)
 
     def terminate_client(self):
-        self.client.close_session()
+        self.client.disconnect()
