@@ -7,3 +7,6 @@ Features:
 - control inverter connected to the plc
 
 ![](images/connect_screen.png)
+![](images/nav_drawer.png)
+![](images/data_screen.png)
+![](images/control_screen.png)
