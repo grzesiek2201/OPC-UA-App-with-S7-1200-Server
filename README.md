@@ -5,3 +5,5 @@ Features:
 - connect to any OPC UA server
 - download data from the server, store in in .csv file and load from .csv
 - control inverter connected to the plc
+
+![](images/connect_screen.png)
